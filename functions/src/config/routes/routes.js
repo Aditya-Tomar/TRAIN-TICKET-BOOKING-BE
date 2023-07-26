@@ -11,6 +11,8 @@ class Routes {
     init(){
         this.app.use("/api/train/ticket", new TicketBookingRouter().initRoutes() );
         this.app.use("/api/train/seats", new SeatsRouter().initRoutes() );
+        this.app.use(new SeatsRouter().initRoutes());
+        this.app.use("/.netlify/functions/api", new SeatsRouter().initRoutes());
     }
 
 }
