@@ -9,7 +9,7 @@ class SeatsRouter {
         const router = express.Router();
         
         //Endpoint to provide data of train seats.
-        router.get("/details", SeatsApi.seatsDetails );
+        router.get("/detail", SeatsApi.seatsDetails );
         return router;
     }
 }
