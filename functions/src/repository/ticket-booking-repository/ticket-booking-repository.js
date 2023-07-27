@@ -6,14 +6,14 @@ class TrainRepository {
     static model = TrainModel;
     constructor(){}
 
-    // This method will perform db operation update value in database
+    // This method will perform db operation, update value in database
     // Return the array of booked seats Number.
     static async ticketBooking(params){
 
         const bookedTicketNumber = [];
         let numOfTickets = params.noOfTickets;
 
-        const trainCoach = await this.model.find({});
+        const trainCoach = await this.seatsDetails();
         const seats = trainCoach[0].seats;
         trainCoach[0].availableSeats -= numOfTickets;
 
@@ -36,7 +36,7 @@ class TrainRepository {
 
     // Fetch train coach details and return it.
     static async seatsDetails() {
-        const trainData = await this.model.find();
+        const trainData = await this.model.find({});
         return trainData;
     }
 }

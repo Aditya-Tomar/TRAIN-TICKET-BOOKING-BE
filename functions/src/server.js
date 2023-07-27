@@ -3,7 +3,7 @@ const connect = require("./config/db-connection/db-connection");
 const { MongooseWrapper } = require("./config/db-connection/mongoose-wrapper");
 const cors = require("cors")
 const bodyparser = require('body-parser');
-const serverlesshttp = require("serverless-http");
+const serverless = require("serverless-http")
 
 
 class App {
@@ -18,13 +18,13 @@ class App {
     // And start listening at provided port number.
     async initializeApp(){
         console.log("Initializing Application...");
-        await this.connectToDB();
         this.createExpressApp();
         this.app.use(cors({
-            origin: ['http://localhost:4200'] 
+            origin: ['https://ttbooking.netlify.app'] 
         }));
         this.app.use(bodyparser.json());
         this.createRoutes();
+        await this.connectToDB();
         this.startListening();
         this.errorHandler();
     }
@@ -57,8 +57,8 @@ class App {
     }
 
     startListening(){
-        this.app.listen(process.env.PORT || 3000, () => {
-            console.log("Server started listening at port ", 3000);
+        this.app.listen(process.env.PORT || 8889, () => {
+            console.log("Server started listening at port ", process.env.PORT ?? 8889 );
         })
     }
 
@@ -69,5 +69,11 @@ class App {
         });
     }
 }
-// this.app.use("/.netlify/functions/api")
-module.exports.handler = serverlesshttp(this.app);
+
+const app = new App();
+app.initializeApp();
+module.exports.handler = serverless(app.app);
+
+// module.exports.handler = async (context, req) => {
+//   context.res = await handler(context, req);
+// }

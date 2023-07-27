@@ -5,7 +5,7 @@ class SeatsService {
     constructor(){}
 
     static async seatsDetails(){ 
-        return TrainRepository.seatsDetails();
+        return  TrainRepository.seatsDetails();
     }
 }
 

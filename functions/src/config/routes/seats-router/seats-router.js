@@ -8,9 +8,6 @@ class SeatsRouter {
     initRoutes() {
         const router = express.Router();
         
-
-        router.get("", SeatsApi.a)
-        router.get("/a", SeatsApi.aa())
         //Endpoint to provide data of train seats.
         router.get("/details", SeatsApi.seatsDetails );
         return router;
